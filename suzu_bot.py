@@ -39,6 +39,7 @@ def play_audio_output(text):
     engine.say(text)
     engine.runAndWait()
 
+conversation_history = []
 print("Hi, I am Suzu, your personal voice assistant. How can I help you today?")
 play_audio_output("Hi, I am Suzu, your personal voice assistant. How can I help you today?")
 
@@ -52,7 +53,10 @@ while True:
         print("Goodbye! Have a great day.")
         play_audio_output("Goodbye! Have a great day.")
         break
-    response = chatbot("Suzu: " + user_input)
+    conversation_history.append("You: " + user_input)
+    prompt = "\n".join(conversation_history)
+    response = chatbot("Suzu: " + prompt)
     print("Suzu: " + response)
     play_audio_output(response)
+    conversation_history.append(response)
 
